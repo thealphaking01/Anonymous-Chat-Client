@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anon Chat - Chat with Strangers</title>
+    <script>
+function sendText(){
+	// body...
+	var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+    }
+  };
+  mesg = document.getElementById("message").value;
+  xhttp.open("GET", "/sendText?id=" + document.getElementById('demo').value + "&val=" + mesg, true);
+  xhttp.send();
+}
+function getMessage(){
+
+}
+function temp2(){
+document.getElementById("demo2").innerHTML = "Connecting..."
+var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      t = xhttp.responseText;
+      if(t!="-1")
+      { document.getElementById("demo2").innerHTML = "Connected to";
+        document.getElementById("user2").innerHTML = t;
+      }
+      else
+      {
+        document.getElementById("demo2").innerHTML = "Not Connected. Try again in a few seconds";
+      }
+    }
+  };
+  id = document.getElementById("demo").innerHTML;
+  console.log(id);
+  xhttp.open("GET", "/connect/" + id , true);
+  xhttp.send();
+}
+
+function temp() {
+	// body...
+	var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      document.getElementById("demo").innerHTML = xhttp.responseText;
+      temp2();
+    }
+  };
+  console.log(document.getElementById("demo").innerHTML);
+  if(document.getElementById("demo").innerHTML=="") {
+  xhttp.open("GET", "/hit/", true);
+  xhttp.send();
+  console.log("hey");
+  }
+  else { temp2(); }
+}
+
+</script>
+</head>
+<body>
+<button onclick="temp()">Start Chat</button>
+<div id="demo"></div>
+<div id="demo2"></div>
+<div id="user2"></div>
+
+<div id="recieved"></div>
+<input type="text" id="message"> <button type="button" onclick="sendText()">Send</button>
+</body>
+</html>
